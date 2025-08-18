@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  /* Desktop dropdown base styles */
+  .menu > li > a,
+  .menu > li > button {
+    @apply text-slate-700 hover:text-slate-900;
+  }
+  /* Position dropdown relative to parent group */
+  .menu > li { @apply relative; }
+  .menu li .sub-menu { @apply left-0; }
+  .menu li.depth-1 .sub-menu { @apply left-full top-0 ml-2; }
+  /* Mega-menu when top-level item has grandchildren */
+  .menu > li[data-has-grandchildren="1"] > .sub-menu {
+    @apply left-1/2 -translate-x-1/2 w-[min(64rem,90vw)] gap-2 p-4;
+  }
+  /* Ensure mega submenu displays as grid on focus (no hover) */
+  .menu > li[data-has-grandchildren="1"]:focus-within > .sub-menu {
+    @apply grid grid-cols-2 md:grid-cols-3;
+  }
+  /* Defensive: ensure hidden always wins for mega submenu */
+  .menu > li[data-has-grandchildren="1"] > .sub-menu.hidden {
+    display: none;
+  }
+  .menu > li[data-has-grandchildren="1"] > .sub-menu > li > a {
+    @apply font-semibold text-slate-700 px-2 py-1;
+  }
+  .menu > li[data-has-grandchildren="1"] > .sub-menu > li > .sub-menu {
+    @apply static mt-1 grid grid-cols-1 gap-1 p-0 shadow-none ring-0 bg-transparent;
+  }
+  .menu > li[data-has-grandchildren="1"] > .sub-menu > li > .sub-menu > li > a {
+    @apply px-2 py-1 text-sm text-slate-600 hover:text-slate-900;
+  }
+
+  /* Dropdown item styles */
+  .sub-menu > li > a { @apply block px-3 py-2 text-slate-700 hover:bg-slate-50; }
+}
+
+/* Typography defaults for posts */
+.prose img {
+  @apply rounded;
+}

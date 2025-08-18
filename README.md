@@ -1,16 +1,26 @@
-## Hi there 👋
+# Oriandras WordPress
 
-<!--
-**oriandras/oriandras** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+Local WordPress install with a custom theme using Tailwind CSS.
 
-Here are some ideas to get you started:
+## Theme: oriandras
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+Location: `wp-content/themes/oriandras`
+
+### Frontend (Tailwind) workflow
+
+Prerequisites: Node.js 18+ and npm
+
+Commands (run inside the theme directory):
+
+- Install deps:
+  - `cd wp-content/themes/oriandras`
+  - `npm install`
+- Start development build (watch):
+  - `npm run dev`
+- Production build (minified):
+  - `npm run build`
+
+The compiled CSS is written to `wp-content/themes/oriandras/dist/app.css` and is automatically enqueued by the theme.
+
+### Tailwind UI
+You can paste Tailwind UI components into your PHP templates (e.g., header.php, index.php). The config includes official plugins (typography, forms, aspect-ratio) commonly used by Tailwind UI.

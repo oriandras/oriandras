@@ -1,0 +1,15 @@
+/*
+Theme Name: Oriandras
+Theme URI: https://example.com/themes/oriandras
+Author: Őri András
+Author URI: https://oriandras.net
+Description: A custom WordPress theme for the Oriandras blog, styled with Tailwind CSS and Tailwind UI components.
+Version: 0.1.0
+License: GNU General Public License v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: oriandras
+Tags: blog, tailwind, responsive, accessibility-ready
+
+This file exists primarily to provide the theme header for WordPress.
+The actual compiled CSS is located at /dist/app.css and is enqueued via functions.php.
+*/
