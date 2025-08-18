@@ -59,6 +59,7 @@ wp-content/uploads/**
 
 # KEEP your special theme and its child themes
 !wp-content/themes/oriandras/
+!wp-content/themes/oriandras/**
 !wp-content/themes/oriandras-*/
 
 # KEEP your special plugins (and mu-plugins) starting with oriandras-
