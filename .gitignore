@@ -1,0 +1,66 @@
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.iml
+
+# Package managers (root and nested)
+node_modules/
+**/node_modules/
+vendor/
+**/vendor/
+
+# Environments / logs / dumps
+.env
+.env.*
+!.env.example
+**/.env
+*.log
+*.sql
+*.sqlite*
+*.bak
+
+# WordPress core at project root (keep only wp-content in Git)
+wp-admin/
+wp-includes/
+index.php
+license.txt
+readme.html
+wp-*.php
+xmlrpc.php
+.htaccess
+sitemap.xml
+sitemap.xml.gz
+wp-sitemap.xml
+
+# wp-content: ignore all by default
+wp-content/*
+
+# Allow these top-level directories back in
+!wp-content/plugins/
+!wp-content/themes/
+!wp-content/mu-plugins/
+
+# Then ignore their contents by default
+wp-content/plugins/*
+wp-content/themes/*
+wp-content/mu-plugins/*
+wp-content/languages/*
+wp-content/upgrade/
+wp-content/cache/
+wp-content/backup*/
+
+# Uploads (ignored), keep placeholders if needed
+wp-content/uploads/**
+!wp-content/uploads/
+!wp-content/uploads/index.php
+!wp-content/uploads/.gitkeep
+
+# KEEP your special theme and its child themes
+!wp-content/themes/oriandras/
+!wp-content/themes/oriandras-*/
+
+# KEEP your special plugins (and mu-plugins) starting with oriandras-
+!wp-content/plugins/oriandras-*/
+!wp-content/mu-plugins/oriandras-*/
