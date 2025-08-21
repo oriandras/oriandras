@@ -298,6 +298,29 @@ function oriandras_sanitize_btt_fg($value) {
     return array_key_exists($value, $choices) ? $value : 'auto';
 }
 
+/**
+ * Sanitize general foreground (text/link) choice. Allows palette slugs or 'auto'.
+ */
+function oriandras_sanitize_fg_choice($value) {
+    $choices = oriandras_tailwind_color_choices();
+    if ($value === 'auto') return 'auto';
+    return array_key_exists($value, $choices) ? $value : 'auto';
+}
+
+/**
+ * Compute a contrasting foreground (#000 or #fff) for a given bg hex.
+ */
+function oriandras_contrast_color($bg_hex) {
+    $hex = ltrim((string)$bg_hex, '#');
+    if (strlen($hex) === 3) { $hex = $hex[0].$hex[0].$hex[1].$hex[1].$hex[2].$hex[2]; }
+    if (strlen($hex) !== 6) return '#000000';
+    $r = hexdec(substr($hex, 0, 2));
+    $g = hexdec(substr($hex, 2, 2));
+    $b = hexdec(substr($hex, 4, 2));
+    $brightness = (0.299*$r + 0.587*$g + 0.114*$b);
+    return ($brightness > 140) ? '#000000' : '#ffffff';
+}
+
 add_action('customize_register', function (WP_Customize_Manager $wp_customize) {
     // Section
     $wp_customize->add_section('oriandras_theme_colors', [
@@ -359,7 +382,7 @@ add_action('customize_register', function (WP_Customize_Manager $wp_customize) {
     // Body text/url color
     $wp_customize->add_setting('oriandras_body_fg_color', [
         'default'           => 'slate',
-        'sanitize_callback' => 'oriandras_sanitize_color_choice',
+        'sanitize_callback' => 'oriandras_sanitize_fg_choice',
         'transport'         => 'refresh',
     ]);
 
@@ -368,7 +391,7 @@ add_action('customize_register', function (WP_Customize_Manager $wp_customize) {
         'description' => __('Text and link color for the site body.', 'oriandras'),
         'section'     => 'oriandras_theme_colors',
         'type'        => 'select',
-        'choices'     => $choices_labels,
+        'choices'     => array_merge(['auto' => __('Auto (contrast)', 'oriandras')], $choices_labels),
     ]);
 
     // Header background color
@@ -389,7 +412,7 @@ add_action('customize_register', function (WP_Customize_Manager $wp_customize) {
     // Header text/url color
     $wp_customize->add_setting('oriandras_header_fg_color', [
         'default'           => 'slate',
-        'sanitize_callback' => 'oriandras_sanitize_color_choice',
+        'sanitize_callback' => 'oriandras_sanitize_fg_choice',
         'transport'         => 'refresh',
     ]);
 
@@ -398,7 +421,7 @@ add_action('customize_register', function (WP_Customize_Manager $wp_customize) {
         'description' => __('Text and link color in the site header.', 'oriandras'),
         'section'     => 'oriandras_theme_colors',
         'type'        => 'select',
-        'choices'     => $choices_labels,
+        'choices'     => array_merge(['auto' => __('Auto (contrast)', 'oriandras')], $choices_labels),
     ]);
 
     // Navbar background color (mobile menu)
@@ -419,7 +442,7 @@ add_action('customize_register', function (WP_Customize_Manager $wp_customize) {
     // Navbar text/url color (mobile menu)
     $wp_customize->add_setting('oriandras_nav_fg_color', [
         'default'           => 'slate',
-        'sanitize_callback' => 'oriandras_sanitize_color_choice',
+        'sanitize_callback' => 'oriandras_sanitize_fg_choice',
         'transport'         => 'refresh',
     ]);
 
@@ -428,7 +451,7 @@ add_action('customize_register', function (WP_Customize_Manager $wp_customize) {
         'description' => __('Text and link color in the mobile off-canvas menu.', 'oriandras'),
         'section'     => 'oriandras_theme_colors',
         'type'        => 'select',
-        'choices'     => $choices_labels,
+        'choices'     => array_merge(['auto' => __('Auto (contrast)', 'oriandras')], $choices_labels),
     ]);
 
     // Footer background color
@@ -449,7 +472,7 @@ add_action('customize_register', function (WP_Customize_Manager $wp_customize) {
     // Footer text/url color
     $wp_customize->add_setting('oriandras_footer_fg_color', [
         'default'           => 'slate',
-        'sanitize_callback' => 'oriandras_sanitize_color_choice',
+        'sanitize_callback' => 'oriandras_sanitize_fg_choice',
         'transport'         => 'refresh',
     ]);
 
@@ -458,7 +481,7 @@ add_action('customize_register', function (WP_Customize_Manager $wp_customize) {
         'description' => __('Text and link color in the footer.', 'oriandras'),
         'section'     => 'oriandras_theme_colors',
         'type'        => 'select',
-        'choices'     => $choices_labels,
+        'choices'     => array_merge(['auto' => __('Auto (contrast)', 'oriandras')], $choices_labels),
     ]);
 
     // Back-to-top button colors
@@ -512,13 +535,13 @@ add_action('wp_head', function () {
     $main_hex      = $choices[$main_slug][1]       ?? '#475569'; // slate-600
     $accent_hex    = $choices[$accent_slug][1]     ?? '#2563eb'; // blue-600
     $body_bg_hex   = $choices[$body_bg_slug][1]    ?? '#ffffff'; // white
-    $body_fg_hex   = $choices[$body_fg_slug][1]    ?? '#475569'; // slate-600
+    $body_fg_hex   = ($body_fg_slug === 'auto') ? oriandras_contrast_color($body_bg_hex) : ($choices[$body_fg_slug][1] ?? '#475569'); // slate-600
     $header_bg_hex = $choices[$header_bg_slug][1]  ?? '#ffffff'; // white
-    $header_fg_hex = $choices[$header_fg_slug][1]  ?? '#475569'; // slate-600
+    $header_fg_hex = ($header_fg_slug === 'auto') ? oriandras_contrast_color($header_bg_hex) : ($choices[$header_fg_slug][1] ?? '#475569'); // slate-600
     $nav_bg_hex    = $choices[$nav_bg_slug][1]     ?? '#ffffff'; // white
-    $nav_fg_hex    = $choices[$nav_fg_slug][1]     ?? '#475569'; // slate-600
+    $nav_fg_hex    = ($nav_fg_slug === 'auto') ? oriandras_contrast_color($nav_bg_hex) : ($choices[$nav_fg_slug][1] ?? '#475569'); // slate-600
     $footer_bg_hex = $choices[$footer_bg_slug][1]  ?? '#ffffff'; // white
-    $footer_fg_hex = $choices[$footer_fg_slug][1]  ?? '#475569'; // slate-600
+    $footer_fg_hex = ($footer_fg_slug === 'auto') ? oriandras_contrast_color($footer_bg_hex) : ($choices[$footer_fg_slug][1] ?? '#475569'); // slate-600
 
     // Back-to-top color resolution
     $btt_bg_hex = ($btt_bg_choice === 'accent') ? $accent_hex : ($choices[$btt_bg_choice][1] ?? $accent_hex);
@@ -556,6 +579,9 @@ add_action('wp_head', function () {
     // Header styles (desktop header area)
     echo "header[role=\\\"banner\\\"], #site-header{background-color: var(--ori-header-bg); color: var(--ori-header-fg);}\n";
     echo "header[role=\\\"banner\\\"] *, header[role=\\\"banner\\\"] a, header[role=\\\"banner\\\"] a:hover, header[role=\\\"banner\\\"] a:focus, #site-header *, #site-header a, #site-header a:hover, #site-header a:focus{color: var(--ori-header-fg);}\n";
+
+    // Primary desktop menu: submenu item hover background
+    echo "nav[aria-label=\"Primary\"] .sub-menu a:hover, nav[aria-label=\"Primary\"] .sub-menu button:hover{background-color: rgba(0,0,0,0.9); color: #ffffff;}\n";
 
     // Mobile menu styles
     echo "#mobile-nav{background-color: var(--ori-nav-bg); color: var(--ori-nav-fg);}\n";

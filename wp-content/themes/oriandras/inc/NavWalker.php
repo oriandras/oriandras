@@ -113,7 +113,7 @@ class Oriandras_Nav_Walker extends Walker_Nav_Menu {
      */
     public function start_lvl(&$output, $depth = 0, $args = null) {
         $indent = str_repeat("\t", $depth);
-        $submenu_classes = ['sub-menu', 'absolute', 'z-40', 'mt-2', 'rounded-lg', 'bg-white', 'shadow-lg', 'ring-1', 'ring-black/5', 'hidden', 'group-focus-within:block'];
+        $submenu_classes = ['sub-menu', 'absolute', 'z-40', 'mt-2', 'rounded-lg', 'shadow-lg', 'ring-1', 'ring-black/5', 'hidden', 'group-focus-within:block'];
         $inject_widget = false;
         if ($depth === 0) {
             // first dropdown level defaults to normal dropdown; mega-menu handled via parent li data attribute
@@ -130,7 +130,8 @@ class Oriandras_Nav_Walker extends Walker_Nav_Menu {
             $submenu_classes[] = 'py-2';
         }
         $class_str = implode(' ', $submenu_classes);
-        $output .= "\n{$indent}<ul class=\"{$class_str}\" role=\"menu\">\n";
+        $style_str = 'background-color: var(--ori-header-bg); color: var(--ori-header-fg);';
+        $output .= "\n{$indent}<ul class=\"{$class_str}\" role=\"menu\" style=\"{$style_str}\">\n";
 
         // Inject widget area as first column in mega-menu when active
         if ($depth === 0) {
