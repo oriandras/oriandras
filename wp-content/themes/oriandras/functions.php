@@ -221,6 +221,16 @@ add_action('wp_enqueue_scripts', function () {
 // -----------------------------------------------------------------------------
 // Admin bar adjustment for sticky footer (avoid tiny scroll when admin bar shows)
 // -----------------------------------------------------------------------------
+/**
+ * Output an inline CSS tweak when the WordPress admin bar is visible.
+ *
+ * Hook: wp_head
+ *
+ * Reduces the body's min-height by the admin bar height to prevent
+ * a small vertical overflow caused by 100vh layouts when the admin bar is shown.
+ *
+ * @return void
+ */
 add_action('wp_head', function () {
     if (!is_admin_bar_showing()) {
         return;
@@ -684,6 +694,14 @@ add_action('save_post', function ($post_id, $post, $update) {
 // -----------------------------------------------------------------------------
 // Admin notice: Required plugins check
 // -----------------------------------------------------------------------------
+/**
+ * Display an informational admin notice when required plugins are inactive.
+ *
+ * Hook: admin_notices
+ * Capability: activate_plugins (only users able to activate plugins will see it)
+ *
+ * @return void
+ */
 add_action('admin_notices', function () {
     if (!current_user_can('activate_plugins')) {
         return;

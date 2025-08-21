@@ -17,6 +17,10 @@
 
   var previouslyFocused = null;
 
+  /**
+   * Open the mobile navigation drawer.
+   * Updates aria-hidden/aria-expanded, manages focus, and locks body scroll.
+   */
   function openNav(){
     if (!drawer.classList.contains('-translate-x-full')) return;
     previouslyFocused = document.activeElement;
@@ -30,6 +34,11 @@
     (closeBtn || drawer).focus({preventScroll:true});
     document.body.classList.add('overflow-hidden');
   }
+
+  /**
+   * Close the mobile navigation drawer.
+   * Restores aria state/body scroll and returns focus to the opener.
+   */
   function closeNav(){
     if (drawer.classList.contains('-translate-x-full')) return;
     drawer.classList.add('-translate-x-full');
@@ -92,6 +101,10 @@
   });
 
   // Mobile accordion for submenus
+  /**
+   * Initialize mobile submenu accordion behavior.
+   * Adds click handlers to toggle submenus and maintain aria-expanded.
+   */
   function setupMobileAccordion(){
     var container = drawer;
     if (!container) return;
@@ -113,6 +126,10 @@
   }
 
   // Desktop dropdowns: open on click or focus (no hover)
+  /**
+   * Initialize desktop dropdown interactions for the primary nav.
+   * Click/focus to open, outside click/ESC to close; handles ARIA states.
+   */
   function setupDesktopDropdowns(){
     var primaryNav = document.querySelector('nav[aria-label="Primary"]');
     if (!primaryNav) return;
@@ -199,6 +216,10 @@
     var ticking = false;
     var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    /**
+     * Update the visibility/transition classes of the Back-to-Top button
+     * based on current scroll position.
+     */
     function updateBackTopVisibility(){
       var show = window.scrollY > 0; // visible after leaving the very top
       if (show) {
@@ -211,6 +232,10 @@
       ticking = false;
     }
 
+    /**
+     * Scroll handler that throttles updates using requestAnimationFrame
+     * for better performance.
+     */
     function onScroll(){
       if (!ticking){
         window.requestAnimationFrame(updateBackTopVisibility);

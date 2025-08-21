@@ -27,13 +27,17 @@ You can paste Tailwind UI components into your PHP templates (e.g., header.php, 
 
 
 ### Theme description
-LookOut is a Tailwind CSS powered WordPress theme with customizable color palette, mobile-friendly navigation, and editor enhancements for modern blogging.
+LookOut is a Tailwind CSS powered WordPress theme with a flexible color system, accessible mobile/desktop navigation (including swipe gestures and dropdowns), widgetized areas (sidebar, comments, mega‑menu and footer columns), and editor enhancements for modern blogging.
 
 ### New functions in the theme
-- Customizer color controls for main, accent, body/header/nav/footer background and text colors. The theme outputs CSS variables into the head so you can quickly theme the site without editing CSS.
-- Header Visibility metabox on posts and pages that allows hiding the header block (title, author, dates) per-entry.
-- Smart asset enqueuing with cache-busting for `/dist/app.css` and the mobile navigation script.
-- Admin info notice if required plugins are inactive (see below).
+- Color system & CSS variables: Customizer controls for main, accent, body, header, mobile nav and footer background/text colors, plus Back‑to‑Top button bg/fg. The theme outputs CSS variables into the head so you can quickly theme the site without editing CSS.
+- Navigation UX: Mobile off‑canvas drawer with overlay, focus management, ESC handling and swipe gestures; desktop dropdowns with click/focus behavior and ARIA; optional mega‑menu grid support via custom Nav Walker and "Mega Menu" widget area.
+- Header Visibility: Metabox on posts and pages to hide the header block (title, author, dates) per entry.
+- Smart assets: Cache‑busted enqueuing for `/dist/app.css` (Tailwind build) and the mobile/desktop navigation script.
+- Admin notice: Informational notice if required plugins are inactive (see below).
+- Custom logo: Theme supports a custom logo with a dedicated image size (`oriandras-logo`, height-capped at 80px).
+- Widgets/Sidebars: "Primary Sidebar", "Comments Sidebar", "Mega Menu" widget column (inserts into mega‑menu), and footer widget areas (Footer 1–4) with auto‑grid layout.
+- Admin bar fix: Adjusts min-height when the admin bar is visible to prevent tiny scroll.
 
 ### Required plugins
 The LookOut theme expects the following plugins to be active. If they are not active, an informational notice will appear in wp-admin for users who can activate plugins.
