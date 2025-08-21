@@ -698,6 +698,7 @@ add_action('admin_notices', function () {
         // slug => [Human Name, main file]
         'same-day-archive/same-day-archive.php' => 'Same Day Archive (Previous Years)',
         'oriandras-stale-content-alert/oriandras-stale-content-alert.php' => 'Stale Content Alert',
+        'oriandras-featured-video/oriandras-featured-video.php' => 'Featured Video',
     ];
 
     $inactive = [];

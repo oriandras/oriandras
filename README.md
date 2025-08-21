@@ -46,7 +46,11 @@ The LookOut theme expects the following plugins to be active. If they are not ac
    - Folder: `wp-content/plugins/oriandras-stale-content-alert`
    - Main file: `oriandras-stale-content-alert.php`
    - Shows an informational banner on old content (configurable threshold).
+3. Oriandras – Featured Video
+   - Folder: `wp-content/plugins/oriandras-featured-video`
+   - Main file: `oriandras-featured-video.php`
+   - Replaces featured image with a YouTube or Media Library video when configured.
 
 Activation:
-- Go to wp-admin → Plugins and activate both plugins. The theme will show an info notice if either is inactive.
+- Go to wp-admin → Plugins and activate these plugins. The theme will show an info notice if any is inactive.
 
