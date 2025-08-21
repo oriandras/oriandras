@@ -5,15 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php wp_head(); ?>
 </head>
-<body <?php body_class('bg-white text-slate-800 antialiased'); ?>>
+<body <?php body_class('antialiased'); ?>>
 <a class="skip-link sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:bg-white focus:text-blue-700 focus:px-3 focus:py-2 focus:rounded" href="#primary">Skip to content</a>
-<header class="border-b border-slate-200" role="banner">
+<header id="site-header" class="border-b border-slate-200" role="banner">
     <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-3 flex-1 md:flex-none">
             <button id="nav-toggle" class="md:hidden inline-flex items-center justify-center rounded-md p-2 text-slate-700 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-600" aria-controls="mobile-nav" aria-expanded="false" aria-label="Open menu">
                 <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
             </button>
-            <a class="font-bold text-xl tracking-tight" href="<?php echo esc_url(home_url('/')); ?>"><?php bloginfo('name'); ?></a>
+            <div class="flex items-center ml-auto md:ml-0">
+                <?php if (function_exists('the_custom_logo') && has_custom_logo()) : ?>
+                    <?php
+                    $logo_id = get_theme_mod('custom_logo');
+                    $home_url = esc_url(home_url('/'));
+                    $site_name = esc_attr(get_bloginfo('name'));
+                    if ($logo_id) {
+                        $logo_img = wp_get_attachment_image($logo_id, 'oriandras-logo', false, [
+                            'class' => 'custom-logo h-auto max-h-20',
+                            'alt'   => $site_name,
+                        ]);
+                        echo '<a href="' . $home_url . '" class="custom-logo-link" rel="home">' . $logo_img . '</a>';
+                    }
+                    ?>
+                <?php else : ?>
+                    <a class="font-bold text-xl tracking-tight" href="<?php echo esc_url(home_url('/')); ?>"><?php bloginfo('name'); ?></a>
+                <?php endif; ?>
+            </div>
         </div>
 
         <?php if (has_nav_menu('primary')) : ?>
