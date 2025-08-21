@@ -173,4 +173,8 @@ if (!function_exists('oriandras_render_comment')) {
             </aside>
         </div>
     <?php endif; ?>
+
+    <?php if (!comments_open() && !have_comments()) : ?>
+        <p class="mt-6 text-sm text-slate-600"><?php esc_html_e('Comments are closed.', 'oriandras'); ?></p>
+    <?php endif; ?>
 </section>
