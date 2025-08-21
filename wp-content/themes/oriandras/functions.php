@@ -576,11 +576,13 @@ add_action('wp_head', function () {
     // Links (accent) - base
     echo "a{color: var(--ori-accent);} a:hover{color: var(--ori-accent);} \n";
 
-    // Titles and emphasis (main)
-    echo "h1,h2,h3,h4,h5,h6{color: var(--ori-main);} em{color: var(--ori-main);} \n";
+    // Titles (main) and emphasis in content (accent)
+    echo "h1,h2,h3,h4,h5,h6{color: var(--ori-main);} \n";
+    // Emphasis inside published content to accent
+    echo ".entry-content strong, .entry-content b, .entry-content em, .entry-content i, .prose strong, .prose b, .prose em, .prose i{color: var(--ori-accent);} \n";
 
-    // Blockquote left border (main)
-    echo "blockquote{border-left: 4px solid var(--ori-main); padding-left: 1rem;}\n";
+    // Blockquote left border (accent)
+    echo "blockquote{border-left: 4px solid var(--ori-accent); padding-left: 1rem;}\n";
 
     // Body styles
     echo "body{background-color: var(--ori-body-bg); color: var(--ori-body-fg);}\n";
