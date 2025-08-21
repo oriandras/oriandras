@@ -16,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php wp_head(); ?>
 </head>
-<body <?php body_class('antialiased overflow-x-hidden'); ?>>
+<body <?php body_class('antialiased overflow-x-hidden min-h-screen flex flex-col'); ?>>
 <a class="skip-link sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:bg-white focus:text-blue-700 focus:px-3 focus:py-2 focus:rounded" href="#primary">Skip to content</a>
 <header id="site-header" class="border-b border-slate-200" role="banner">
     <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between gap-4">

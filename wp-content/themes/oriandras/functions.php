@@ -181,6 +181,22 @@ add_action('wp_enqueue_scripts', function () {
 });
 
 // -----------------------------------------------------------------------------
+// Admin bar adjustment for sticky footer (avoid tiny scroll when admin bar shows)
+// -----------------------------------------------------------------------------
+add_action('wp_head', function () {
+    if (!is_admin_bar_showing()) {
+        return;
+    }
+    // When the admin bar is visible, 100vh includes the area under the admin bar.
+    // Because our body uses min-h-screen (100vh), this creates a small overflow.
+    // We reduce the body's min-height by the admin bar height (32px desktop, 46px small screens).
+    echo "\n<style id=\"oriandras-adminbar-fixer\">\n" .
+         "body.admin-bar{min-height:calc(100vh - 32px);}\n" .
+         "@media screen and (max-width:782px){body.admin-bar{min-height:calc(100vh - 46px);}}\n" .
+         "</style>\n";
+});
+
+// -----------------------------------------------------------------------------
 // Customizer: Theme Colors (Main & Accent)
 // -----------------------------------------------------------------------------
 
