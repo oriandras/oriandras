@@ -121,6 +121,44 @@ add_action('widgets_init', function () {
         'before_title'  => '<h2 class="widget-title text-xs font-semibold uppercase tracking-wide text-slate-600 mb-2">',
         'after_title'   => '</h2>',
     ]);
+
+    // Footer widget areas (1–4 columns)
+    register_sidebar([
+        'name'          => __('Footer 1', 'oriandras'),
+        'id'            => 'footer-1',
+        'description'   => __('First column in the footer widget area.', 'oriandras'),
+        'before_widget' => '<section id="%1$s" class="widget %2$s">',
+        'after_widget'  => '</section>',
+        'before_title'  => '<h2 class="widget-title text-sm font-semibold uppercase tracking-wide text-slate-600 mb-3">',
+        'after_title'   => '</h2>',
+    ]);
+    register_sidebar([
+        'name'          => __('Footer 2', 'oriandras'),
+        'id'            => 'footer-2',
+        'description'   => __('Second column in the footer widget area.', 'oriandras'),
+        'before_widget' => '<section id="%1$s" class="widget %2$s">',
+        'after_widget'  => '</section>',
+        'before_title'  => '<h2 class="widget-title text-sm font-semibold uppercase tracking-wide text-slate-600 mb-3">',
+        'after_title'   => '</h2>',
+    ]);
+    register_sidebar([
+        'name'          => __('Footer 3', 'oriandras'),
+        'id'            => 'footer-3',
+        'description'   => __('Third column in the footer widget area.', 'oriandras'),
+        'before_widget' => '<section id="%1$s" class="widget %2$s">',
+        'after_widget'  => '</section>',
+        'before_title'  => '<h2 class="widget-title text-sm font-semibold uppercase tracking-wide text-slate-600 mb-3">',
+        'after_title'   => '</h2>',
+    ]);
+    register_sidebar([
+        'name'          => __('Footer 4', 'oriandras'),
+        'id'            => 'footer-4',
+        'description'   => __('Fourth column in the footer widget area.', 'oriandras'),
+        'before_widget' => '<section id="%1$s" class="widget %2$s">',
+        'after_widget'  => '</section>',
+        'before_title'  => '<h2 class="widget-title text-sm font-semibold uppercase tracking-wide text-slate-600 mb-3">',
+        'after_title'   => '</h2>',
+    ]);
 });
 
 // -----------------------------------------------------------------------------
