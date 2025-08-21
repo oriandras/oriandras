@@ -36,6 +36,10 @@ get_header();
         $modified  = get_the_modified_date();
         $show_updated = (get_the_modified_time('U') !== get_the_time('U'));
 
+        // Visibility toggle: set custom field _ori_hide_header_block to '1' to hide the title/author/dates block (incl. left meta column).
+        // Default: visible when the meta is absent or not '1'.
+        $ori_hide_header_block = get_post_meta(get_the_ID(), '_ori_hide_header_block', true) === '1';
+
         /**
          * Runtime variables used by the template
          *
@@ -47,11 +51,13 @@ get_header();
          * @var string      $published    Human-readable published date of the post.
          * @var string      $modified     Human-readable modified date of the post.
          * @var bool        $show_updated Whether to display the modified date (true when different from published).
+         * @var bool        $ori_hide_header_block If true, hide the header (title, author, dates) and left meta column.
          */
         ?>
 
         <article id="post-<?php the_ID(); ?>" <?php post_class('grid grid-cols-1 lg:grid-cols-12 gap-8'); ?> itemscope itemtype="https://schema.org/Article">
             <!-- Column 1: Meta + Author (hidden on small, visible on lg) -->
+            <?php if (!$ori_hide_header_block) : ?>
             <div class="hidden lg:block lg:col-span-2 text-sm text-slate-600">
                 <div class="space-y-4 sticky top-6">
                     <div>
@@ -78,6 +84,7 @@ get_header();
                     </div>
                 </div>
             </div>
+            <?php endif; ?>
 
             <!-- Column 2: Main content -->
             <div class="lg:col-span-7">
@@ -87,6 +94,7 @@ get_header();
                     </figure>
                 <?php endif; ?>
 
+                <?php if (!$ori_hide_header_block) : ?>
                 <header class="mb-4">
                     <h1 class="text-3xl font-extrabold tracking-tight !mb-2" itemprop="headline"><?php the_title(); ?></h1>
                     <?php
@@ -122,6 +130,7 @@ get_header();
                         <?php endif; ?>
                     </div>
                 </header>
+                <?php endif; ?>
 
                 <?php if (has_excerpt()) : ?>
                     <p class="text-lg text-slate-700 mb-6" itemprop="description"><?php echo esc_html(get_the_excerpt()); ?></p>

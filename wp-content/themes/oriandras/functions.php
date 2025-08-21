@@ -437,3 +437,86 @@ add_action('wp_head', function () {
 
     echo "</style>\n";
 }, 100);
+
+// -----------------------------------------------------------------------------
+// Editor Metabox: Header block visibility toggle
+// -----------------------------------------------------------------------------
+
+/**
+ * Register the post meta in REST (optional, for future extensibility) and add the metabox.
+ */
+add_action('init', function () {
+    // Register post meta so it’s recognized and can be exposed to REST if needed.
+    if (function_exists('register_post_meta')) {
+        register_post_meta('', '_ori_hide_header_block', [
+            'show_in_rest'  => true,
+            'single'        => true,
+            'type'          => 'string', // stores '1' when hidden
+            'auth_callback' => function ($allowed, $meta_key, $post_id) {
+                return current_user_can('edit_post', $post_id);
+            },
+        ]);
+    }
+});
+
+add_action('add_meta_boxes', function () {
+    $screen_types = ['post', 'page'];
+    foreach ($screen_types as $screen) {
+        add_meta_box(
+            'oriandras_header_visibility',
+            __('Header Visibility', 'oriandras'),
+            'oriandras_render_header_visibility_metabox',
+            $screen,
+            'side',
+            'default'
+        );
+    }
+});
+
+/**
+ * Render the checkbox metabox to toggle the header block visibility.
+ *
+ * @param WP_Post $post
+ * @return void
+ */
+function oriandras_render_header_visibility_metabox($post)
+{
+    $value = get_post_meta($post->ID, '_ori_hide_header_block', true);
+    $checked = ($value === '1');
+    wp_nonce_field('oriandras_hide_header_block_nonce', 'oriandras_hide_header_block_nonce_field');
+    echo '<p><label for="oriandras_hide_header_block">';
+    echo '<input type="checkbox" id="oriandras_hide_header_block" name="oriandras_hide_header_block" value="1"' . checked($checked, true, false) . ' /> ';
+    echo esc_html__('Hide header (title, author and dates)', 'oriandras');
+    echo '</label></p>';
+    echo '<p class="description">' . esc_html__('When checked, the header block is hidden on the front-end for this post/page.', 'oriandras') . '</p>';
+}
+
+/**
+ * Save handler for the header visibility checkbox.
+ * Stores '1' when checked; removes the meta when unchecked.
+ */
+add_action('save_post', function ($post_id, $post, $update) {
+    // Security: nonce check
+    if (!isset($_POST['oriandras_hide_header_block_nonce_field']) || !wp_verify_nonce($_POST['oriandras_hide_header_block_nonce_field'], 'oriandras_hide_header_block_nonce')) {
+        return;
+    }
+
+    // Do not run on autosave/revisions/auto-drafts
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (wp_is_post_autosave($post_id) || wp_is_post_revision($post_id)) return;
+
+    // Permission check
+    if (!current_user_can('edit_post', $post_id)) return;
+
+    // Only handle for our target post types
+    if (!in_array($post->post_type, ['post', 'page'], true)) return;
+
+    // Read checkbox
+    $is_checked = isset($_POST['oriandras_hide_header_block']) && $_POST['oriandras_hide_header_block'] === '1';
+
+    if ($is_checked) {
+        update_post_meta($post_id, '_ori_hide_header_block', '1');
+    } else {
+        delete_post_meta($post_id, '_ori_hide_header_block');
+    }
+}, 10, 3);
