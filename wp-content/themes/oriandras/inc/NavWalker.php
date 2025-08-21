@@ -47,6 +47,15 @@ class Oriandras_Nav_Walker extends Walker_Nav_Menu {
     protected $elements_with_grandchildren = [];
 
     /**
+     * Flag indicating that the next depth-0 start_lvl call belongs to a
+     * top-level item that has grandchildren (mega-menu). Used to optionally
+     * inject a widget column as the first child of the mega submenu.
+     *
+     * @var bool
+     */
+    protected $inject_widget_for_next_submenu = false;
+
+    /**
      * Populate has_children flag and detect grandchildren for top-level items.
      *
      * WordPress walkers commonly set $args[0]->has_children to communicate to
@@ -105,15 +114,38 @@ class Oriandras_Nav_Walker extends Walker_Nav_Menu {
     public function start_lvl(&$output, $depth = 0, $args = null) {
         $indent = str_repeat("\t", $depth);
         $submenu_classes = ['sub-menu', 'absolute', 'z-40', 'mt-2', 'rounded-lg', 'bg-white', 'shadow-lg', 'ring-1', 'ring-black/5', 'hidden', 'group-focus-within:block'];
+        $inject_widget = false;
         if ($depth === 0) {
             // first dropdown level defaults to normal dropdown; mega-menu handled via parent li data attribute
             $submenu_classes[] = 'min-w-[12rem]';
             $submenu_classes[] = 'py-2';
+            if ($this->inject_widget_for_next_submenu && function_exists('is_active_sidebar') && is_active_sidebar('mega-menu')) {
+                // Ensure grid layout is available even without JS
+                $submenu_classes[] = 'grid';
+                $submenu_classes[] = 'grid-cols-2';
+                $submenu_classes[] = 'md:grid-cols-3';
+                $inject_widget = true;
+            }
         } else {
             $submenu_classes[] = 'py-2';
         }
         $class_str = implode(' ', $submenu_classes);
         $output .= "\n{$indent}<ul class=\"{$class_str}\" role=\"menu\">\n";
+
+        // Inject widget area as first column in mega-menu when active
+        if ($depth === 0) {
+            if ($inject_widget) {
+                $output .= "{$indent}\t<li class=\"mega-widget col-span-1\">";
+                // Capture dynamic_sidebar output
+                ob_start();
+                dynamic_sidebar('mega-menu');
+                $widget_html = trim(ob_get_clean());
+                $output .= $widget_html;
+                $output .= "</li>\n";
+            }
+            // Reset flag after handling top-level submenu
+            $this->inject_widget_for_next_submenu = false;
+        }
     }
 
     /**
@@ -169,6 +201,8 @@ class Oriandras_Nav_Walker extends Walker_Nav_Menu {
             if ($has_grandchildren) {
                 $classes[] = 'has-grandchildren';
             }
+            // Prepare to inject widget column for the upcoming top-level submenu if mega-menu
+            $this->inject_widget_for_next_submenu = $has_grandchildren;
         }
 
         // Tailwind group to control submenu visibility on hover/focus for desktop

@@ -110,6 +110,17 @@ add_action('widgets_init', function () {
         'before_title'  => '<h2 class="widget-title text-sm font-semibold uppercase tracking-wide text-slate-600 mb-2">',
         'after_title'   => '</h2>',
     ]);
+
+    // Mega Menu left column widget area
+    register_sidebar([
+        'name'          => __('Mega Menu Widget', 'oriandras'),
+        'id'            => 'mega-menu',
+        'description'   => __('Widgets placed here will appear as the first column in the mega-menu. Leave empty to hide.', 'oriandras'),
+        'before_widget' => '<section id="%1$s" class="widget %2$s mb-4">',
+        'after_widget'  => '</section>',
+        'before_title'  => '<h2 class="widget-title text-xs font-semibold uppercase tracking-wide text-slate-600 mb-2">',
+        'after_title'   => '</h2>',
+    ]);
 });
 
 // -----------------------------------------------------------------------------
