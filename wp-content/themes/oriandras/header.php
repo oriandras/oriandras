@@ -32,7 +32,7 @@
                     $site_name = esc_attr(get_bloginfo('name'));
                     if ($logo_id) {
                         $logo_img = wp_get_attachment_image($logo_id, 'oriandras-logo', false, [
-                            'class' => 'custom-logo h-auto max-h-20',
+                            'class' => 'custom-logo h-auto max-h-[50px]',
                             'alt'   => $site_name,
                         ]);
                         echo '<a href="' . $home_url . '" class="custom-logo-link" rel="home">' . $logo_img . '</a>';

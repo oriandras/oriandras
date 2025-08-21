@@ -63,9 +63,9 @@ add_action('after_setup_theme', function () {
         'header-text' => ['site-title', 'site-description'],
     ]);
 
-    // Logo image size: height-capped at 80px, width auto (no hard crop)
+    // Logo image size: height-capped at 50px, width auto (no hard crop)
     // Using a very large width and fixed height ensures WordPress generates a constrained-height rendition preserving aspect ratio.
-    add_image_size('oriandras-logo', 9999, 80, false);
+    add_image_size('oriandras-logo', 9999, 50, false);
 
     // Switch default core markup for search form, comment form, and comments to output valid HTML5.
     add_theme_support('html5', ['search-form', 'comment-form', 'comment-list', 'gallery', 'caption', 'style', 'script']);
