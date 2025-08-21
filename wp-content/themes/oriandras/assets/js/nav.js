@@ -192,4 +192,47 @@
 
   setupMobileAccordion();
   setupDesktopDropdowns();
+
+  // Back to top button
+  var backTop = document.getElementById('back-to-top');
+  if (backTop) {
+    var ticking = false;
+    var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function updateBackTopVisibility(){
+      var show = window.scrollY > 0; // visible after leaving the very top
+      if (show) {
+        backTop.classList.add('opacity-100','translate-y-0','pointer-events-auto');
+        backTop.classList.remove('opacity-0','translate-y-2','pointer-events-none');
+      } else {
+        backTop.classList.add('opacity-0','translate-y-2','pointer-events-none');
+        backTop.classList.remove('opacity-100','translate-y-0','pointer-events-auto');
+      }
+      ticking = false;
+    }
+
+    function onScroll(){
+      if (!ticking){
+        window.requestAnimationFrame(updateBackTopVisibility);
+        ticking = true;
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, {passive:true});
+    // Initialize visibility on load
+    updateBackTopVisibility();
+
+    backTop.addEventListener('click', function(e){
+      e.preventDefault();
+      try {
+        if (prefersReduced) {
+          window.scrollTo(0, 0);
+        } else {
+          window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+      } catch (err) {
+        window.scrollTo(0, 0);
+      }
+    });
+  }
 })();

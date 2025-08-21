@@ -280,6 +280,24 @@ function oriandras_sanitize_color_choice($value) {
     return array_key_exists($value, $choices) ? $value : 'blue';
 }
 
+/**
+ * Sanitize back-to-top background choice. Allows palette slugs or the special 'accent'.
+ */
+function oriandras_sanitize_btt_bg($value) {
+    $choices = oriandras_tailwind_color_choices();
+    if ($value === 'accent') return 'accent';
+    return array_key_exists($value, $choices) ? $value : 'accent';
+}
+
+/**
+ * Sanitize back-to-top foreground (text) choice. Allows palette slugs or 'auto'.
+ */
+function oriandras_sanitize_btt_fg($value) {
+    $choices = oriandras_tailwind_color_choices();
+    if ($value === 'auto') return 'auto';
+    return array_key_exists($value, $choices) ? $value : 'auto';
+}
+
 add_action('customize_register', function (WP_Customize_Manager $wp_customize) {
     // Section
     $wp_customize->add_section('oriandras_theme_colors', [
@@ -442,6 +460,35 @@ add_action('customize_register', function (WP_Customize_Manager $wp_customize) {
         'type'        => 'select',
         'choices'     => $choices_labels,
     ]);
+
+    // Back-to-top button colors
+    $wp_customize->add_setting('oriandras_btt_bg', [
+        'default'           => 'accent',
+        'sanitize_callback' => 'oriandras_sanitize_btt_bg',
+        'transport'         => 'refresh',
+    ]);
+    $btt_bg_choices = array_merge(['accent' => __('Use Accent color', 'oriandras')], $choices_labels);
+    $wp_customize->add_control('oriandras_btt_bg', [
+        'label'       => __('Back-to-top background', 'oriandras'),
+        'description' => __('Background color for the scroll-to-top button. Default uses the Accent color.', 'oriandras'),
+        'section'     => 'oriandras_theme_colors',
+        'type'        => 'select',
+        'choices'     => $btt_bg_choices,
+    ]);
+
+    $wp_customize->add_setting('oriandras_btt_fg', [
+        'default'           => 'auto',
+        'sanitize_callback' => 'oriandras_sanitize_btt_fg',
+        'transport'         => 'refresh',
+    ]);
+    $btt_fg_choices = array_merge(['auto' => __('Auto (contrast)', 'oriandras')], $choices_labels);
+    $wp_customize->add_control('oriandras_btt_fg', [
+        'label'       => __('Back-to-top text color', 'oriandras'),
+        'description' => __('Text/icon color for the scroll-to-top button.', 'oriandras'),
+        'section'     => 'oriandras_theme_colors',
+        'type'        => 'select',
+        'choices'     => $btt_fg_choices,
+    ]);
 });
 
 /**
@@ -459,6 +506,8 @@ add_action('wp_head', function () {
     $nav_fg_slug    = get_theme_mod('oriandras_nav_fg_color', 'slate');
     $footer_bg_slug = get_theme_mod('oriandras_footer_bg_color', 'white');
     $footer_fg_slug = get_theme_mod('oriandras_footer_fg_color', 'slate');
+    $btt_bg_choice  = get_theme_mod('oriandras_btt_bg', 'accent'); // 'accent' or palette slug
+    $btt_fg_choice  = get_theme_mod('oriandras_btt_fg', 'auto');   // 'auto' or palette slug
 
     $main_hex      = $choices[$main_slug][1]       ?? '#475569'; // slate-600
     $accent_hex    = $choices[$accent_slug][1]     ?? '#2563eb'; // blue-600
@@ -471,9 +520,25 @@ add_action('wp_head', function () {
     $footer_bg_hex = $choices[$footer_bg_slug][1]  ?? '#ffffff'; // white
     $footer_fg_hex = $choices[$footer_fg_slug][1]  ?? '#475569'; // slate-600
 
+    // Back-to-top color resolution
+    $btt_bg_hex = ($btt_bg_choice === 'accent') ? $accent_hex : ($choices[$btt_bg_choice][1] ?? $accent_hex);
+    // Compute auto contrast if needed
+    if ($btt_fg_choice === 'auto') {
+        $hex = ltrim($btt_bg_hex, '#');
+        if (strlen($hex) === 3) { $hex = $hex[0].$hex[0].$hex[1].$hex[1].$hex[2].$hex[2]; }
+        $r = hexdec(substr($hex, 0, 2));
+        $g = hexdec(substr($hex, 2, 2));
+        $b = hexdec(substr($hex, 4, 2));
+        // perceived brightness 0..255
+        $brightness = (0.299*$r + 0.587*$g + 0.114*$b);
+        $btt_fg_hex = ($brightness > 140) ? '#000000' : '#ffffff';
+    } else {
+        $btt_fg_hex = $choices[$btt_fg_choice][1] ?? '#ffffff';
+    }
+
     // Inline CSS at a later priority so it overrides base CSS
     echo "\n<style id=\"oriandras-theme-colors\">\n";
-    echo ":root{--ori-main: {$main_hex}; --ori-accent: {$accent_hex}; --ori-body-bg: {$body_bg_hex}; --ori-body-fg: {$body_fg_hex}; --ori-header-bg: {$header_bg_hex}; --ori-header-fg: {$header_fg_hex}; --ori-nav-bg: {$nav_bg_hex}; --ori-nav-fg: {$nav_fg_hex}; --ori-footer-bg: {$footer_bg_hex}; --ori-footer-fg: {$footer_fg_hex};}\n";
+    echo ":root{--ori-main: {$main_hex}; --ori-accent: {$accent_hex}; --ori-body-bg: {$body_bg_hex}; --ori-body-fg: {$body_fg_hex}; --ori-header-bg: {$header_bg_hex}; --ori-header-fg: {$header_fg_hex}; --ori-nav-bg: {$nav_bg_hex}; --ori-nav-fg: {$nav_fg_hex}; --ori-footer-bg: {$footer_bg_hex}; --ori-footer-fg: {$footer_fg_hex}; --ori-btt-bg: {$btt_bg_hex}; --ori-btt-fg: {$btt_fg_hex};}\n";
 
     // Links (accent) - base
     echo "a{color: var(--ori-accent);} a:hover{color: var(--ori-accent);} \n";
@@ -499,6 +564,9 @@ add_action('wp_head', function () {
     // Footer styles
     echo "footer[role=\\\"contentinfo\\\"], footer{background-color: var(--ori-footer-bg); color: var(--ori-footer-fg);}\n";
     echo "footer[role=\\\"contentinfo\\\"] *, footer *, footer a, footer a:hover, footer a:focus{color: var(--ori-footer-fg);}\n";
+
+    // Back-to-top styles
+    echo "#back-to-top{background-color: var(--ori-btt-bg); color: var(--ori-btt-fg); --tw-ring-color: var(--ori-btt-bg);}\n";
 
     echo "</style>\n";
 }, 100);
