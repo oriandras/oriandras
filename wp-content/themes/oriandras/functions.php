@@ -531,3 +531,42 @@ add_action('save_post', function ($post_id, $post, $update) {
         delete_post_meta($post_id, '_ori_hide_header_block');
     }
 }, 10, 3);
+
+
+// -----------------------------------------------------------------------------
+// Admin notice: Required plugins check
+// -----------------------------------------------------------------------------
+add_action('admin_notices', function () {
+    if (!current_user_can('activate_plugins')) {
+        return;
+    }
+
+    // We need the is_plugin_active function.
+    if (!function_exists('is_plugin_active')) {
+        include_once ABSPATH . 'wp-admin/includes/plugin.php';
+    }
+
+    $required_plugins = [
+        // slug => [Human Name, main file]
+        'same-day-archive/same-day-archive.php' => 'Same Day Archive (Previous Years)',
+        'oriandras-stale-content-alert/oriandras-stale-content-alert.php' => 'Stale Content Alert',
+    ];
+
+    $inactive = [];
+    foreach ($required_plugins as $main_file => $label) {
+        if (!is_plugin_active($main_file)) {
+            $inactive[] = $label;
+        }
+    }
+
+    if (!empty($inactive)) {
+        $plugins_url = admin_url('plugins.php');
+        $theme_name  = wp_get_theme()->get('Name');
+        echo '<div class="notice notice-info is-dismissible">';
+        echo '<p><strong>' . esc_html($theme_name) . ':</strong> ';
+        echo esc_html__('The following required plugins are not active:', 'oriandras') . ' ';
+        echo esc_html(implode(', ', $inactive)) . '. ';
+        echo '<a href="' . esc_url($plugins_url) . '">' . esc_html__('Go to Plugins to activate', 'oriandras') . '</a>.';
+        echo '</p></div>';
+    }
+});
