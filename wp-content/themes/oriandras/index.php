@@ -2,7 +2,7 @@
 get_header();
 ?>
 
-<main id="primary" class="prose prose-slate max-w-3xl mx-auto px-4 py-10">
+<main id="primary" role="main" class="prose prose-slate max-w-3xl mx-auto px-4 py-10">
     <?php if (have_posts()) : ?>
         <?php while (have_posts()) : the_post(); ?>
             <article id="post-<?php the_ID(); ?>" <?php post_class('mb-12'); ?>>

@@ -60,9 +60,42 @@ add_action('after_setup_theme', function () {
     // Add support for responsive embeds
     add_theme_support('responsive-embeds');
 
+    // Add support for wide and full alignments in Gutenberg
+    add_theme_support('align-wide');
+
     // Register navigation menus
     register_nav_menus([
         'primary' => __('Primary Menu', 'oriandras'),
+    ]);
+});
+
+// -----------------------------------------------------------------------------
+// Widgets / Sidebars
+// -----------------------------------------------------------------------------
+
+/**
+ * Register theme sidebars.
+ */
+add_action('widgets_init', function () {
+    register_sidebar([
+        'name'          => __('Primary Sidebar', 'oriandras'),
+        'id'            => 'primary-sidebar',
+        'description'   => __('Widgets in this area will be shown in the third column on single posts.', 'oriandras'),
+        'before_widget' => '<section id="%1$s" class="widget %2$s mb-6">',
+        'after_widget'  => '</section>',
+        'before_title'  => '<h2 class="widget-title text-sm font-semibold uppercase tracking-wide text-slate-600 mb-2">',
+        'after_title'   => '</h2>',
+    ]);
+
+    // Comments section sidebar (third column in comments area)
+    register_sidebar([
+        'name'          => __('Comments Sidebar', 'oriandras'),
+        'id'            => 'comments-sidebar',
+        'description'   => __('Widgets shown in the third column of the comments section.', 'oriandras'),
+        'before_widget' => '<section id="%1$s" class="widget %2$s mb-6">',
+        'after_widget'  => '</section>',
+        'before_title'  => '<h2 class="widget-title text-sm font-semibold uppercase tracking-wide text-slate-600 mb-2">',
+        'after_title'   => '</h2>',
     ]);
 });
 
