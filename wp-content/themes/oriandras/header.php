@@ -1,3 +1,14 @@
+<?php
+/**
+ * Site Header Template
+ *
+ * Outputs the global document structure head and the site header with:
+ * - Skip link, proper landmark roles and ARIA labelling.
+ * - Primary navigation (desktop) and accessible mobile off-canvas menu.
+ *
+ * @package Oriandras\Theme
+ */
+?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?> class="scroll-smooth">
 <head>

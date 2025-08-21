@@ -1,3 +1,13 @@
+/**
+ * Oriandras Theme – Navigation interactions
+ *
+ * Enhances accessibility and usability of the header navigation:
+ * - Mobile off‑canvas drawer: toggles aria-expanded and aria-hidden, manages focus.
+ * - Overlay handling and ESC support.
+ * - Touch gestures (open from left edge, close by swiping left over drawer).
+ * - Mobile submenu accordion with proper aria-expanded on toggle buttons.
+ * - Desktop dropdowns: click/focus to open, ESC/outside-click to close.
+ */
 (function(){
   var toggle = document.getElementById('nav-toggle');
   var drawer = document.getElementById('mobile-nav');
@@ -5,19 +15,36 @@
   var closeBtn = document.getElementById('nav-close');
   if(!drawer) return;
 
+  var previouslyFocused = null;
+
   function openNav(){
     if (!drawer.classList.contains('-translate-x-full')) return;
+    previouslyFocused = document.activeElement;
     drawer.classList.remove('-translate-x-full');
+    drawer.setAttribute('aria-hidden','false');
     overlay && overlay.classList.remove('hidden');
+    overlay && overlay.setAttribute('aria-hidden','false');
     if (toggle) toggle.setAttribute('aria-expanded','true');
+    // focus management
+    (closeBtn || drawer).setAttribute('tabindex','-1');
+    (closeBtn || drawer).focus({preventScroll:true});
     document.body.classList.add('overflow-hidden');
   }
   function closeNav(){
     if (drawer.classList.contains('-translate-x-full')) return;
     drawer.classList.add('-translate-x-full');
+    drawer.setAttribute('aria-hidden','true');
     overlay && overlay.classList.add('hidden');
+    overlay && overlay.setAttribute('aria-hidden','true');
     if (toggle) toggle.setAttribute('aria-expanded','false');
     document.body.classList.remove('overflow-hidden');
+    // restore focus
+    if (previouslyFocused && typeof previouslyFocused.focus === 'function') {
+      previouslyFocused.focus({preventScroll:true});
+    } else if (toggle) {
+      toggle.focus({preventScroll:true});
+    }
+    previouslyFocused = null;
   }
 
   toggle && toggle.addEventListener('click', function(e){ e.preventDefault(); openNav(); });
