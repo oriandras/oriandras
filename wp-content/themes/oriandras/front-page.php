@@ -59,13 +59,46 @@ get_header();
             <?php endif; ?>
 
             <?php wp_reset_postdata(); ?>
+
+            <?php
+            // Conditional: On this day (previous years) block — only if the Same Day Archive plugin is active and has content today
+            if (function_exists('ori_sameday_build_query_args')) {
+                // Build query args for today (site timezone), previous years only; limit to, say, 10 entries for performance
+                $sda_args = ori_sameday_build_query_args([
+                    'limit'     => 10,
+                    'post_type' => 'post',
+                    'order'     => 'DESC',
+                    'orderby'   => 'date',
+                ]);
+                // Minor perf: avoid total rows
+                $sda_args['no_found_rows'] = true;
+
+                $onthisday_q = new WP_Query($sda_args);
+                if ($onthisday_q->have_posts()) {
+                    ?>
+                    <section class="mt-10">
+                        <header class="mb-4">
+                            <h2 class="text-2xl font-extrabold tracking-tight"><?php echo esc_html__('On this day', 'oriandras'); ?></h2>
+                        </header>
+                        <div class="grid gap-6">
+                            <?php while ($onthisday_q->have_posts()) : $onthisday_q->the_post(); ?>
+                                <?php get_template_part('template-parts/content', 'card'); ?>
+                            <?php endwhile; ?>
+                        </div>
+                    </section>
+                    <?php
+                }
+                wp_reset_postdata();
+            }
+            ?>
         </div>
+
 
         <!-- Right column: Sidebar (same as page.php and single.php) -->
-        <div class="lg:col-span-3">
-            <?php get_sidebar(); ?>
-        </div>
-    </div>
-</main>
-
-<?php get_footer(); ?>
+         <div class="lg:col-span-3">
+             <?php get_sidebar(); ?>
+         </div>
+     </div>
+ </main>
+ 
+ <?php get_footer(); ?>
