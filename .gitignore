@@ -65,3 +65,7 @@ wp-content/uploads/**
 # KEEP your special plugins (and mu-plugins) starting with oriandras-
 !wp-content/plugins/oriandras-*/
 !wp-content/mu-plugins/oriandras-*/
+
+# KEEP the Same Day Archive plugin in Git
+!wp-content/plugins/same-day-archive/
+!wp-content/plugins/same-day-archive/**
