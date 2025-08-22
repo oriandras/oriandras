@@ -180,7 +180,7 @@ function oriandras_carousel_enqueue()
 .oriandras-crsl-track{display:flex;flex-wrap:nowrap;height:100%;will-change:transform;transition:transform .35s ease}
 .oriandras-crsl-slide{flex:0 0 100%;height:100%;position:relative}
 .oriandras-crsl-link{display:block;width:100%;height:100%;position:relative;color:inherit;text-decoration:none}
-.oriandras-crsl-img{width:100%;height:100%;object-fit:cover;display:block}
+.oriandras-crsl-img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
 .oriandras-crsl-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#f3f4f6;color:#111;font-weight:600;padding:1rem;text-align:center}
 .oriandras-crsl-title{position:absolute;left:50%;transform:translateX(-50%);bottom:.75rem;display:inline-block;max-width:calc(100% - 1.5rem);background:rgba(0,0,0,.6);color:#fff;padding:.4rem .6rem;border-radius:.375rem;font-size:.95rem;text-align:center}
 .oriandras-crsl-prev,.oriandras-crsl-next{position:absolute;top:50%;transform:translateY(-50%);background:var(--ori-accent, #2563eb);color:#fff;border:none;width:2.25rem;height:2.25rem;border-radius:999px;display:flex;align-items:center;justify-content:center;cursor:pointer}

@@ -16,15 +16,22 @@
   }
 
   /* Prevent main#primary from overflowing viewport on mobile */
-  #primary { max-width: 100vw; overflow-x: clip; }
-  @supports not (overflow: clip){
-    #primary { overflow-x: hidden; }
+  @media (max-width: 768px){
+    #primary { max-width: 100vw; overflow-x: clip; }
+    @supports not (overflow: clip){
+      #primary { overflow-x: hidden; }
+    }
   }
   #primary .entry-content, #primary .prose { overflow-wrap: anywhere; word-break: break-word; }
   #primary img, #primary svg, #primary video, #primary iframe, #primary .wp-block-embed__wrapper { max-width: 100%; height: auto; }
   #primary pre { overflow-x: auto; max-width: 100%; }
   #primary code { white-space: pre-wrap; }
   #primary table { display: block; width: 100%; overflow-x: auto; }
+
+  /* Aspect ratio helpers for cards (16:9) */
+  .aspect-w-16.aspect-h-9{ position: relative; }
+  .aspect-w-16.aspect-h-9::before{ content:""; display:block; padding-top:56.25%; }
+  .aspect-w-16.aspect-h-9 > *{ position:absolute; inset:0; }
 
   /* Desktop dropdown base styles */
   .menu > li > a,

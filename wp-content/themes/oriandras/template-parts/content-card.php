@@ -30,11 +30,11 @@ $cat         = !empty($cats) ? $cats[0] : null;
 <article id="post-<?php the_ID(); ?>" <?php post_class('bg-white/60 rounded-lg shadow-sm ring-1 ring-slate-200 overflow-hidden flex flex-col'); ?> itemscope itemtype="https://schema.org/Article">
     <!-- Media -->
     <a href="<?php the_permalink(); ?>" class="block" aria-label="<?php echo esc_attr(get_the_title()); ?>">
-        <div class="aspect-w-16 aspect-h-9 bg-slate-100">
+        <div class="bg-slate-100">
             <?php if (has_post_thumbnail()) : ?>
-                <?php the_post_thumbnail('large', ['class' => 'w-full h-full object-cover', 'itemprop' => 'image', 'loading' => 'lazy']); ?>
+                <?php the_post_thumbnail('large', ['class' => 'w-full h-auto block', 'itemprop' => 'image', 'loading' => 'lazy']); ?>
             <?php else : ?>
-                <div class="w-full h-full flex items-center justify-center text-slate-400 text-sm">No cover image</div>
+                <div class="w-full flex items-center justify-center text-slate-400 text-sm py-12">No cover image</div>
             <?php endif; ?>
         </div>
     </a>
