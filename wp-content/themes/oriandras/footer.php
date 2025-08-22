@@ -45,6 +45,7 @@
         </div>
     </div>
 </footer>
+</div>
 
 <button id="back-to-top" type="button" aria-label="<?php echo esc_attr(__('Back to top', 'oriandras')); ?>" class="fixed z-50 bottom-6 right-6 inline-flex items-center justify-center rounded-full shadow-lg h-12 w-12 transform transition-all duration-300 ease-out opacity-0 translate-y-2 pointer-events-none hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2" style="--tw-ring-color: var(--ori-btt-bg); background-color: var(--ori-btt-bg); color: var(--ori-btt-fg);">
     <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>

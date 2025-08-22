@@ -2,7 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  /* Full-width safety to ensure no layout constrains root/page bars */
+  html, body { width: 100%; max-width: 100%; }
+  #wpadminbar { left: 0; right: 0; width: 100%; }
+}
+
 @layer components {
+  /* Mobile header sizing tweaks */
+  #site-header .custom-logo{ @apply max-h-10 md:max-h-[50px]; }
+  @media (max-width: 480px){
+    #site-header .header-inner{ padding-top: 0.5rem; padding-bottom: 0.5rem; }
+  }
+
+  /* Prevent main#primary from overflowing viewport on mobile */
+  #primary { max-width: 100vw; overflow-x: clip; }
+  @supports not (overflow: clip){
+    #primary { overflow-x: hidden; }
+  }
+  #primary .entry-content, #primary .prose { overflow-wrap: anywhere; word-break: break-word; }
+  #primary img, #primary svg, #primary video, #primary iframe, #primary .wp-block-embed__wrapper { max-width: 100%; height: auto; }
+  #primary pre { overflow-x: auto; max-width: 100%; }
+  #primary code { white-space: pre-wrap; }
+  #primary table { display: block; width: 100%; overflow-x: auto; }
+
   /* Desktop dropdown base styles */
   .menu > li > a,
   .menu > li > button {

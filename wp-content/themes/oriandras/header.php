@@ -16,10 +16,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php wp_head(); ?>
 </head>
-<body <?php body_class('antialiased overflow-x-hidden min-h-screen flex flex-col'); ?>>
+<body <?php body_class('antialiased overflow-x-hidden w-full'); ?>>
 <a class="skip-link sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:bg-white focus:text-blue-700 focus:px-3 focus:py-2 focus:rounded" href="#primary">Skip to content</a>
-<header id="site-header" class="border-b border-slate-200" role="banner">
-    <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+<div id="page" class="min-h-screen flex flex-col w-full">
+<header id="site-header" class="w-full border-b border-slate-200" role="banner">
+    <div class="header-inner max-w-5xl mx-auto px-4 py-3 md:py-4 flex items-center justify-between gap-4">
         <div class="flex items-center gap-3 flex-1 md:flex-none">
             <button id="nav-toggle" class="md:hidden inline-flex items-center justify-center rounded-md p-2 text-slate-700 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-600" aria-controls="mobile-nav" aria-expanded="false" aria-label="Open menu">
                 <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -32,7 +33,7 @@
                     $site_name = esc_attr(get_bloginfo('name'));
                     if ($logo_id) {
                         $logo_img = wp_get_attachment_image($logo_id, 'oriandras-logo', false, [
-                            'class' => 'custom-logo h-auto max-h-[50px]',
+                            'class' => 'custom-logo h-auto max-h-[40px] md:max-h-[50px]',
                             'alt'   => $site_name,
                         ]);
                         echo '<a href="' . $home_url . '" class="custom-logo-link" rel="home">' . $logo_img . '</a>';
