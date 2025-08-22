@@ -20,13 +20,14 @@ get_header();
 ?>
 
 <main id="primary" role="main" class="max-w-5xl mx-auto px-4 py-10">
-    <!-- Intro/Optional content section -->
-    <section class="mb-10">
-        <div class="rounded border border-slate-200 bg-white/50 p-6">
-            <h2 class="text-xl font-semibold mb-2">Coming soon</h2>
-            <p class="text-slate-700">This section is reserved for customizable front page content.</p>
-        </div>
-    </section>
+    <!-- Intro/Optional content section (widgetized) -->
+    <?php if (is_active_sidebar('front-coming-soon')) : ?>
+        <section class="mb-10">
+            <div class="rounded border border-slate-200 bg-white/50 p-6">
+                <?php dynamic_sidebar('front-coming-soon'); ?>
+            </div>
+        </section>
+    <?php endif; ?>
 
     <!-- 3-column layout: left empty, middle list, right sidebar -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">

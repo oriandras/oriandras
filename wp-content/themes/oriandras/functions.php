@@ -159,6 +159,17 @@ add_action('widgets_init', function () {
         'before_title'  => '<h2 class="widget-title text-sm font-semibold uppercase tracking-wide text-slate-600 mb-3">',
         'after_title'   => '</h2>',
     ]);
+
+    // Front Page – Coming Soon widget area
+    register_sidebar([
+        'name'          => __('Front Page – Coming Soon', 'oriandras'),
+        'id'            => 'front-coming-soon',
+        'description'   => __('Widgets in this area will appear in the Front Page “Coming soon” section. The section is hidden if empty.', 'oriandras'),
+        'before_widget' => '<section id="%1$s" class="widget %2$s mb-4">',
+        'after_widget'  => '</section>',
+        'before_title'  => '<h2 class="widget-title text-sm font-semibold uppercase tracking-wide text-slate-600 mb-2">',
+        'after_title'   => '</h2>',
+    ]);
 });
 
 // -----------------------------------------------------------------------------
@@ -719,6 +730,7 @@ add_action('admin_notices', function () {
         'same-day-archive/same-day-archive.php' => 'Same Day Archive (Previous Years)',
         'oriandras-stale-content-alert/oriandras-stale-content-alert.php' => 'Stale Content Alert',
         'oriandras-featured-video/oriandras-featured-video.php' => 'Featured Video',
+        'oriandras-carousel/oriandras-carousel.php' => 'Content Carousel',
     ];
 
     $inactive = [];
