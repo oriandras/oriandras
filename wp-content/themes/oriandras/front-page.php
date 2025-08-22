@@ -23,7 +23,7 @@ get_header();
     <!-- Intro/Optional content section (widgetized) -->
     <?php if (is_active_sidebar('front-coming-soon')) : ?>
         <section class="mb-10">
-            <div class="rounded border border-slate-200 bg-white/50 p-6">
+            <div class="rounded bg-white/50 p-6">
                 <?php dynamic_sidebar('front-coming-soon'); ?>
             </div>
         </section>
