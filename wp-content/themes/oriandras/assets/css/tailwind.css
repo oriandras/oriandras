@@ -23,7 +23,7 @@
     }
   }
   #primary .entry-content, #primary .prose { overflow-wrap: anywhere; word-break: break-word; }
-  #primary img, #primary svg, #primary video, #primary iframe, #primary .wp-block-embed__wrapper { max-width: 100%; height: auto; }
+  #primary img, #primary svg, #primary video, #primary iframe, #primary .wp-block-embed__wrapper { max-width: 100%; }
   #primary pre { overflow-x: auto; max-width: 100%; }
   #primary code { white-space: pre-wrap; }
   #primary table { display: block; width: 100%; overflow-x: auto; }

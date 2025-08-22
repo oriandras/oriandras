@@ -193,6 +193,7 @@ function oriandras_carousel_enqueue()
 .oriandras-crsl-dot[aria-current="true"]{opacity:1}
 .oriandras-crsl-dot:focus-visible{outline:2px solid #fff;outline-offset:2px;box-shadow:0 0 0 3px var(--ori-accent, #2563eb)}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,1px,1px);white-space:nowrap;border:0}
+@media (min-width: 1024px){.oriandras-crsl-img{object-position:center center !important}.oriandras-crsl-link{background-position:center center !important}}
 ';
 
     add_action('wp_head', function () use ($css) {
