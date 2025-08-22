@@ -27,7 +27,7 @@ $cats        = get_the_category();
 $cat         = !empty($cats) ? $cats[0] : null;
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class('bg-white/60 rounded-lg shadow-sm ring-1 ring-slate-200 overflow-hidden flex flex-col'); ?> itemscope itemtype="https://schema.org/Article">
+<article id="post-<?php the_ID(); ?>" <?php post_class('bg-white/60 shadow-sm hover:shadow-xl transition-shadow duration-200 overflow-hidden flex flex-col border-0'); ?> itemscope itemtype="https://schema.org/Article" style="border-left: 0.25rem solid <?php echo esc_attr('var(--ori-accent, #2563eb)'); ?>;">
     <!-- Media -->
     <a href="<?php the_permalink(); ?>" class="block" aria-label="<?php echo esc_attr(get_the_title()); ?>">
         <div class="bg-slate-100">
