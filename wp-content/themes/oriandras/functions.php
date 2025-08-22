@@ -227,6 +227,13 @@ add_action('wp_enqueue_scripts', function () {
     $js_uri      = $theme_uri . $js_rel_path;
     $js_version  = file_exists($js_file) ? filemtime($js_file) : $theme_version;
     wp_enqueue_script('oriandras-nav', $js_uri, [], $js_version, true);
+
+    // Card lazy loader
+    $card_js_rel = '/assets/js/card-lazy.js';
+    $card_js_file = $theme_dir . $card_js_rel;
+    $card_js_uri  = $theme_uri . $card_js_rel;
+    $card_js_ver  = file_exists($card_js_file) ? filemtime($card_js_file) : $theme_version;
+    wp_enqueue_script('oriandras-card-lazy', $card_js_uri, [], $card_js_ver, true);
 });
 
 // -----------------------------------------------------------------------------
