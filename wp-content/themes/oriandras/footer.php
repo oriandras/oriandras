@@ -7,7 +7,7 @@
  * @package Oriandras\Theme
  */
 ?>
-<footer class="border-t border-slate-200 mt-12 mt-auto" role="contentinfo">
+<footer id="site-footer" class="border-t border-slate-200 mt-12 mt-auto" role="contentinfo">
     <?php
     // Footer widgetized area (1–4 columns)
     $footer_sidebars = ['footer-1', 'footer-2', 'footer-3', 'footer-4'];
@@ -24,9 +24,10 @@
             $grid .= ' md:grid-cols-2 lg:grid-cols-4';
         }
     ?>
-    <div class="max-w-5xl mx-auto px-4 py-10 <?php echo esc_attr($grid); ?>">
+    <div id="footer-widgets" class="max-w-5xl mx-auto px-4 py-10 <?php echo esc_attr($grid); ?>">
         <?php foreach ($footer_sidebars as $id) : if (is_active_sidebar($id)) : ?>
-            <div class="footer-widget-col space-y-4">
+            <?php $num = (int) filter_var($id, FILTER_SANITIZE_NUMBER_INT); ?>
+            <div id="footer-col-<?php echo (int) $num; ?>" class="footer-widget-col space-y-4">
                 <?php dynamic_sidebar($id); ?>
             </div>
         <?php endif; endforeach; ?>

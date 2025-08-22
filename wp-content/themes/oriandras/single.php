@@ -58,7 +58,7 @@ get_header();
         <article id="post-<?php the_ID(); ?>" <?php post_class('grid grid-cols-1 lg:grid-cols-12 gap-8'); ?> itemscope itemtype="https://schema.org/Article">
             <!-- Column 1: Meta + Author (hidden on small, visible on lg) -->
             <?php if (!$ori_hide_header_block) : ?>
-            <div class="hidden lg:block lg:col-span-2 text-sm text-slate-600">
+            <div id="single-col-meta" class="hidden lg:block lg:col-span-2 text-sm text-slate-600">
                 <div class="space-y-4 sticky top-6">
                     <div>
                         <div class="font-semibold uppercase tracking-wide text-slate-500">Published</div>
@@ -87,7 +87,7 @@ get_header();
             <?php endif; ?>
 
             <!-- Column 2: Main content -->
-            <div class="lg:col-span-7">
+            <div id="single-col-content" class="lg:col-span-7">
                 <?php if (has_post_thumbnail()) : ?>
                     <figure class="mb-6">
                         <?php the_post_thumbnail('large', ['class' => 'w-full h-auto rounded', 'itemprop' => 'image']); ?>
@@ -163,7 +163,7 @@ get_header();
             </div>
 
             <!-- Column 3: Sidebar -->
-            <div class="lg:col-span-3">
+            <div id="single-col-sidebar" class="lg:col-span-3">
                 <?php get_sidebar(); ?>
             </div>
         </article>

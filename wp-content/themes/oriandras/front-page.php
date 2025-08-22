@@ -22,8 +22,8 @@ get_header();
 <main id="primary" role="main" class="max-w-5xl mx-auto px-4 py-10">
     <!-- Intro/Optional content section (widgetized) -->
     <?php if (is_active_sidebar('front-coming-soon')) : ?>
-        <section class="mb-10">
-            <div class="rounded bg-white/50 p-6">
+        <section id="front-intro" class="mb-10">
+            <div id="front-coming-soon-area" class="rounded bg-white/50 p-6">
                 <?php dynamic_sidebar('front-coming-soon'); ?>
             </div>
         </section>
@@ -32,10 +32,10 @@ get_header();
     <!-- 3-column layout: left empty, middle list, right sidebar -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <!-- Left column (empty) -->
-        <div class="hidden lg:block lg:col-span-3"></div>
+        <div id="front-col-left" class="hidden lg:block lg:col-span-3"></div>
 
         <!-- Middle column: 10 latest blog posts -->
-        <div class="lg:col-span-6">
+        <div id="front-col-content" class="lg:col-span-6">
             <header class="mb-4">
                 <h1 class="text-2xl font-extrabold tracking-tight">Latest Posts</h1>
             </header>
@@ -96,7 +96,7 @@ get_header();
 
 
         <!-- Right column: Sidebar (same as page.php and single.php) -->
-         <div class="lg:col-span-3">
+         <div id="front-col-sidebar" class="lg:col-span-3">
              <?php get_sidebar(); ?>
          </div>
      </div>

@@ -40,6 +40,7 @@ function oriandras_carousel_shortcode($atts)
         'post_type' => '',
         'orderby' => 'date',
         'order' => 'DESC',
+        'id' => '',
     ], $atts, 'oriandras-carousel');
 
     // Sanitize and normalize
@@ -81,10 +82,11 @@ function oriandras_carousel_shortcode($atts)
     // Ensure assets are enqueued
     add_action('wp_enqueue_scripts', 'oriandras_carousel_enqueue');
 
-    // Unique ID for this instance
+    // Unique ID for this instance (allow override via shortcode id="...")
     static $instance = 0;
     $instance++;
-    $carousel_id = 'oriandras-carousel-' . $instance;
+    $provided_id = sanitize_html_class((string) $atts['id']);
+    $carousel_id = $provided_id !== '' ? $provided_id : ('oriandras-carousel-' . $instance);
     $viewport_id = $carousel_id . '-viewport';
     $track_id = $carousel_id . '-track';
     $live_id = $carousel_id . '-live';

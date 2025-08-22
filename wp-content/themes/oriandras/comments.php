@@ -161,7 +161,7 @@ if (!function_exists('oriandras_render_comment')) {
             </div>
 
             <!-- Right column: Comments Sidebar -->
-            <aside class="lg:col-span-3 space-y-6" aria-label="Comments Widgets">
+            <aside id="comments-sidebar-area" class="lg:col-span-3 space-y-6" aria-label="Comments Widgets">
                 <?php if (is_active_sidebar('comments-sidebar')) : ?>
                     <?php dynamic_sidebar('comments-sidebar'); ?>
                 <?php else : ?>
