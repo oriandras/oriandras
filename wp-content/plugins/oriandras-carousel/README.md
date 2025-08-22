@@ -36,4 +36,5 @@ Examples:
 Notes:
 - Only items that have a featured image (cover) are shown. Items without a cover are skipped and older content is included to fill the requested number of items.
 - Accessibility: WCAG-friendly markup and behavior — slides get proper labels (e.g., "Slide X of Y"), inactive slides are aria-hidden and untabbable, live region announces slide changes, controls have aria-controls, and keyboard navigation with Arrow keys works when the carousel has focus.
+- Colors: Dots and arrow controls use the theme accent color (CSS var `--ori-accent`) with safe fallbacks.
 - No external dependencies.

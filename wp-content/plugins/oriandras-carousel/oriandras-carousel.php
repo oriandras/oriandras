@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Oriandras – Content Carousel
  * Description: Provides a configurable carousel for latest content across all public post types, using the post's featured (cover) image. Shortcode: [oriandras-carousel].
- * Version: 1.1.0
+ * Version: 1.2.0
  * Author: Őri András
  * License: GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -180,14 +180,16 @@ function oriandras_carousel_enqueue()
 .oriandras-crsl-link{display:block;width:100%;height:100%;position:relative;color:inherit;text-decoration:none}
 .oriandras-crsl-img{width:100%;height:100%;object-fit:cover;display:block}
 .oriandras-crsl-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#f3f4f6;color:#111;font-weight:600;padding:1rem;text-align:center}
-.oriandras-crsl-title{position:absolute;left:.75rem;right:.75rem;bottom:.75rem;background:rgba(0,0,0,.55);color:#fff;padding:.5rem .75rem;border-radius:.375rem;font-size:.95rem}
-.oriandras-crsl-prev,.oriandras-crsl-next{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.45);color:#fff;border:none;width:2.25rem;height:2.25rem;border-radius:999px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.oriandras-crsl-title{position:absolute;left:50%;transform:translateX(-50%);bottom:.75rem;display:inline-block;max-width:calc(100% - 1.5rem);background:rgba(0,0,0,.6);color:#fff;padding:.4rem .6rem;border-radius:.375rem;font-size:.95rem;text-align:center}
+.oriandras-crsl-prev,.oriandras-crsl-next{position:absolute;top:50%;transform:translateY(-50%);background:var(--ori-accent, #2563eb);color:#fff;border:none;width:2.25rem;height:2.25rem;border-radius:999px;display:flex;align-items:center;justify-content:center;cursor:pointer}
 .oriandras-crsl-prev{left:.5rem}
 .oriandras-crsl-next{right:.5rem}
-.oriandras-crsl-prev:hover,.oriandras-crsl-next:hover{background:rgba(0,0,0,.65)}
+.oriandras-crsl-prev:hover,.oriandras-crsl-next:hover{filter:brightness(.9)}
+.oriandras-crsl-prev:focus-visible,.oriandras-crsl-next:focus-visible{outline:2px solid #fff;outline-offset:2px;box-shadow:0 0 0 3px var(--ori-accent, #2563eb)}
 .oriandras-crsl-dots{position:absolute;left:0;right:0;bottom:.35rem;display:flex;gap:.4rem;align-items:center;justify-content:center}
-.oriandras-crsl-dot{width:.45rem;height:.45rem;border-radius:999px;background:#d1d5db;border:0;padding:0;cursor:pointer}
-.oriandras-crsl-dot[aria-current="true"]{background:#111827}
+.oriandras-crsl-dot{width:.5rem;height:.5rem;border-radius:999px;background:var(--ori-accent, #2563eb);opacity:.35;border:0;padding:0;cursor:pointer}
+.oriandras-crsl-dot[aria-current="true"]{opacity:1}
+.oriandras-crsl-dot:focus-visible{outline:2px solid #fff;outline-offset:2px;box-shadow:0 0 0 3px var(--ori-accent, #2563eb)}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,1px,1px);white-space:nowrap;border:0}
 ';
 
