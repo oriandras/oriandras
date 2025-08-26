@@ -651,6 +651,29 @@ add_action('wp_head', function () {
     // Back-to-top styles
     echo "#back-to-top{background-color: var(--ori-btt-bg); color: var(--ori-btt-fg); --tw-ring-color: var(--ori-btt-bg);}\n";
 
+    // Pagination styles (buttons + accent for active/current)
+    echo ".navigation.pagination .nav-links{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem}\n";
+    echo ".navigation.pagination ul.page-numbers{display:flex;flex-wrap:wrap;gap:.5rem;margin:0;padding:0;list-style:none}\n";
+
+    // Base button look for items (links and current page span)
+    echo ".navigation.pagination .page-numbers{display:inline-flex;align-items:center;justify-content:center;gap:.25rem;"
+        . "padding:.5rem .75rem;border-radius:.375rem;border:1px solid #e5e7eb;background:#ffffff;color:#111827;"
+        . "text-decoration:none;line-height:1;margin:0;}\n";
+
+    // Hover and focus-visible styles
+    echo ".navigation.pagination .page-numbers:hover{background:#f8fafc}\n";
+    echo ".navigation.pagination .page-numbers:focus-visible{outline:2px solid #fff;outline-offset:2px;"
+        . "box-shadow:0 0 0 3px var(--ori-accent, #2563eb)}\n";
+
+    // Active/current page uses the theme accent color
+    echo ".navigation.pagination .page-numbers.current,"
+        . ".navigation.pagination .page-numbers[aria-current=\"page\"]{"
+        . "background:var(--ori-accent, #2563eb);border-color:var(--ori-accent, #2563eb);color:#ffffff}\n";
+
+    // Explicit styles for prev/next (covered by .page-numbers but kept for clarity)
+    echo ".navigation.pagination .page-numbers.prev,.navigation.pagination .page-numbers.next{"
+        . "background:#ffffff;color:#111827;border:1px solid #e5e7eb}\n";
+
     echo "</style>\n";
 }, 100);
 
