@@ -10,6 +10,12 @@
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
+// Load i18n
+function oriandras_audio_load_textdomain() {
+    load_plugin_textdomain('oriandras-audio', false, dirname(plugin_basename(__FILE__)) . '/languages');
+}
+add_action('init', 'oriandras_audio_load_textdomain');
+
 class Oriandras_Audio_Plugin {
     const CPT = 'oriandras_track';
     const SLUG = 'oriandras-audio';

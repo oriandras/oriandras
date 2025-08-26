@@ -149,7 +149,7 @@ if (!function_exists('oriandras_render_comment')) {
                 </ol>
 
                 <?php if (get_comment_pages_count() > 1 && get_option('page_comments')) : ?>
-                    <nav class="mt-6 flex items-center justify-between" aria-label="Comments Pagination">
+                    <nav class="mt-6 flex items-center justify-between" aria-label="<?php echo esc_attr__( 'Comments Pagination', 'oriandras' ); ?>">
                         <div><?php previous_comments_link(__('← Older Comments', 'oriandras')); ?></div>
                         <div><?php next_comments_link(__('Newer Comments →', 'oriandras')); ?></div>
                     </nav>
@@ -161,7 +161,7 @@ if (!function_exists('oriandras_render_comment')) {
             </div>
 
             <!-- Right column: Comments Sidebar -->
-            <aside id="comments-sidebar-area" class="lg:col-span-3 space-y-6" aria-label="Comments Widgets">
+            <aside id="comments-sidebar-area" class="lg:col-span-3 space-y-6" aria-label="<?php echo esc_attr__( 'Comments Widgets', 'oriandras' ); ?>">
                 <?php if (is_active_sidebar('comments-sidebar')) : ?>
                     <?php dynamic_sidebar('comments-sidebar'); ?>
                 <?php else : ?>

@@ -55,7 +55,7 @@ get_header();
                 </div>
 
                 <!-- Pagination -->
-                <nav class="mt-8" aria-label="Posts Navigation">
+                <nav class="mt-8" aria-label="<?php echo esc_attr__( 'Posts Navigation', 'oriandras' ); ?>">
                     <?php
                     the_posts_pagination([
                         'mid_size'  => 1,

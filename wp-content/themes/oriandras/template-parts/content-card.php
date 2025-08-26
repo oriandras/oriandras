@@ -71,7 +71,7 @@ if (!$ori_card_skeleton_css_printed) {
                 <?php if (has_post_thumbnail()) : ?>
                     <?php the_post_thumbnail('large', ['class' => 'w-full h-auto block', 'itemprop' => 'image', 'loading' => 'lazy']); ?>
                 <?php else : ?>
-                    <div class="w-full flex items-center justify-center text-slate-400 text-sm py-12">No cover image</div>
+                    <div class="w-full flex items-center justify-center text-slate-400 text-sm py-12"><?php echo esc_html__( 'No cover image', 'oriandras' ); ?></div>
                 <?php endif; ?>
             </div>
         </a>

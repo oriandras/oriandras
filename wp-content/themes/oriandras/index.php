@@ -29,15 +29,15 @@ get_header();
 
         <nav class="flex items-center justify-between py-8">
             <div class="">
-                <?php previous_posts_link('&larr; Newer Posts'); ?>
+                <?php previous_posts_link( esc_html__( '&larr; Newer Posts', 'oriandras' ) ); ?>
             </div>
             <div class="">
-                <?php next_posts_link('Older Posts &rarr;'); ?>
+                <?php next_posts_link( esc_html__( 'Older Posts &rarr;', 'oriandras' ) ); ?>
             </div>
         </nav>
 
     <?php else : ?>
-        <p>No posts found.</p>
+        <p><?php echo esc_html__( 'No posts found.', 'oriandras' ); ?></p>
     <?php endif; ?>
 </main>
 

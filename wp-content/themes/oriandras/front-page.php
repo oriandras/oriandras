@@ -34,7 +34,7 @@ get_header();
         <!-- Content column: 10 latest blog posts -->
         <div id="front-col-content" class="lg:col-span-8">
             <header class="mb-4">
-                <h1 class="text-2xl font-extrabold tracking-tight">Latest Posts</h1>
+                <h1 class="text-2xl font-extrabold tracking-tight"><?php echo esc_html__( 'Latest Posts', 'oriandras' ); ?></h1>
             </header>
 
             <?php
@@ -53,7 +53,7 @@ get_header();
                     <?php endwhile; ?>
                 </div>
             <?php else : ?>
-                <p class="text-slate-700">No posts found.</p>
+                <p class="text-slate-700"><?php echo esc_html__( 'No posts found.', 'oriandras' ); ?></p>
             <?php endif; ?>
 
             <?php wp_reset_postdata(); ?>

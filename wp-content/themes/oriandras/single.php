@@ -61,12 +61,12 @@ get_header();
             <div id="single-col-meta" class="hidden lg:block lg:col-span-2 text-sm text-slate-600">
                 <div class="space-y-4 sticky top-6">
                     <div>
-                        <div class="font-semibold uppercase tracking-wide text-slate-500">Published</div>
+                        <div class="font-semibold uppercase tracking-wide text-slate-500"><?php echo esc_html__( 'Published', 'oriandras' ); ?></div>
                         <time datetime="<?php echo esc_attr(get_the_date('c')); ?>" itemprop="datePublished"><?php echo esc_html($published); ?></time>
                     </div>
                     <?php if ($show_updated) : ?>
                         <div>
-                            <div class="font-semibold uppercase tracking-wide text-slate-500">Updated</div>
+                            <div class="font-semibold uppercase tracking-wide text-slate-500"><?php echo esc_html__( 'Updated', 'oriandras' ); ?></div>
                             <time datetime="<?php echo esc_attr(get_the_modified_date('c')); ?>" itemprop="dateModified"><?php echo esc_html($modified); ?></time>
                         </div>
                     <?php endif; ?>
@@ -100,7 +100,7 @@ get_header();
                     <?php
                     $cats = get_the_category();
                     if (!empty($cats)) : ?>
-                        <nav class="mb-2" aria-label="Categories">
+                        <nav class="mb-2" aria-label="<?php echo esc_attr__( 'Categories', 'oriandras' ); ?>">
                             <ul class="text-sm text-slate-600 flex flex-wrap gap-2">
                                 <?php foreach ($cats as $cat) : ?>
                                     <li>
@@ -118,9 +118,9 @@ get_header();
                             <div>
                                 <div class="font-medium"><a href="<?php echo esc_url($author_url); ?>" class="hover:underline" rel="author"><?php echo esc_html($author_name); ?></a></div>
                                 <div class="text-xs">
-                                    <span>Published <?php echo esc_html($published); ?></span>
+                                    <span><?php echo esc_html__( 'Published', 'oriandras' ); ?> <?php echo esc_html($published); ?></span>
                                     <?php if ($show_updated) : ?>
-                                        <span class="ml-1">· Updated <?php echo esc_html($modified); ?></span>
+                                        <span class="ml-1">· <?php echo esc_html__( 'Updated', 'oriandras' ); ?> <?php echo esc_html($modified); ?></span>
                                     <?php endif; ?>
                                 </div>
                             </div>
@@ -150,7 +150,7 @@ get_header();
 
                 <?php $post_tags = get_the_tags(); ?>
                 <?php if ($post_tags) : ?>
-                    <nav class="mt-8" aria-label="Tags">
+                    <nav class="mt-8" aria-label="<?php echo esc_attr__( 'Tags', 'oriandras' ); ?>">
                         <ul class="flex flex-wrap gap-2">
                             <?php foreach ($post_tags as $tag) : ?>
                                 <li>

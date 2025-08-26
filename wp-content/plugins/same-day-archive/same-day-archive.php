@@ -167,3 +167,11 @@ if (!function_exists('ori_sameday_archive_echo')) {
         echo ori_sameday_render($args); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     }
 }
+
+// Load textdomain for translations
+if (!function_exists('ori_sameday_load_textdomain')) {
+    function ori_sameday_load_textdomain() {
+        load_plugin_textdomain('same-day-archive', false, dirname(plugin_basename(__FILE__)) . '/languages');
+    }
+    add_action('init', 'ori_sameday_load_textdomain');
+}
