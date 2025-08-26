@@ -602,6 +602,9 @@ add_action('wp_head', function () {
     // Blockquote left border (accent)
     echo "blockquote{border-left: 4px solid var(--ori-accent); padding-left: 1rem;}\n";
 
+    // Widgets: accent left border for all widgets
+    echo ".widget{border-left: 0.25rem solid var(--ori-accent); padding-left: 1rem;}\n";
+
     // Body styles
     echo "body{background-color: var(--ori-body-bg); color: var(--ori-body-fg);}\n";
     echo "body a, body a:hover, body a:focus{color: var(--ori-body-fg);}\n";
