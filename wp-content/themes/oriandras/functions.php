@@ -27,6 +27,30 @@
 require_once get_template_directory() . '/inc/NavWalker.php';
 
 // -----------------------------------------------------------------------------
+// Compatibility shims for legacy device-detection helpers and fallback callback
+// -----------------------------------------------------------------------------
+
+if (!function_exists('is_mobile')) {
+    function is_mobile() {
+        return function_exists('wp_is_mobile') ? wp_is_mobile() : false;
+    }
+}
+
+if (!function_exists('is_handheld')) {
+    function is_handheld() {
+        return function_exists('wp_is_mobile') ? wp_is_mobile() : false;
+    }
+}
+
+// Some environments register a callback named 'oriandras' via add_action/add_filter.
+// Provide a guarded no-op to prevent bootstrap fatals if such a registration exists.
+if (!function_exists('oriandras')) {
+    function oriandras() {
+        // Intentionally left blank. Replace or remove when the source registration is fixed.
+    }
+}
+
+// -----------------------------------------------------------------------------
 // Theme setup
 // -----------------------------------------------------------------------------
 
