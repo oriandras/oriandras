@@ -788,6 +788,7 @@ add_action('admin_notices', function () {
         'oriandras-stale-content-alert/oriandras-stale-content-alert.php' => 'Stale Content Alert',
         'oriandras-featured-video/oriandras-featured-video.php' => 'Featured Video',
         'oriandras-carousel/oriandras-carousel.php' => 'Content Carousel',
+                'oriandras-galleries/oriandras-galleries.php' => 'Galleries',
     ];
 
     $inactive = [];
